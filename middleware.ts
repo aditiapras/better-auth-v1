@@ -1,8 +1,8 @@
 import { betterFetch } from "@better-fetch/fetch";
-import type { Session } from "better-auth/types";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import type { Session } from "@/lib/auth-types";
 
-export default async function authMiddleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { data: session } = await betterFetch<Session>(
     "/api/auth/get-session",
     {
@@ -21,5 +21,5 @@ export default async function authMiddleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard"],
 };
