@@ -52,7 +52,7 @@ export default function ResetPasswordPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await authClient.resetPassword(
       {
-        password: values.password,
+        newPassword: values.password,
       },
       {
         onRequest: () => {

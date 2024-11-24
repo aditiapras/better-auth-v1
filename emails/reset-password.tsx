@@ -21,8 +21,8 @@ interface ResetPasswordEmailProps {
 }
 
 const ResetPasswordEmail: React.FC<ResetPasswordEmailProps> = ({
-  username = "User",
-  resetLink = "https://example.com/reset-password",
+  username,
+  resetLink,
 }) => (
   <Html>
     <Head />
