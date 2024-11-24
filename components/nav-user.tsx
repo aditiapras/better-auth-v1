@@ -8,7 +8,6 @@ import {
   LogOut,
   Sparkles,
 } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -52,11 +51,11 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
-                  src={session?.data?.user?.image}
-                  alt={session?.data?.user?.name}
+                  src={session?.data?.user?.image ?? undefined}
+                  alt={session?.data?.user?.name ?? undefined}
                 />
                 <AvatarFallback className="rounded-lg">
-                  {session?.data?.user?.name?.charAt(0)}
+                  {session?.data?.user?.name?.charAt(0) ?? ""}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -80,11 +79,11 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={session?.data?.user?.image}
-                    alt={session?.data?.user?.name}
+                    src={session?.data?.user?.image ?? undefined}
+                    alt={session?.data?.user?.name ?? undefined}
                   />
                   <AvatarFallback className="rounded-lg">
-                    {session?.data?.user?.name?.charAt(0)}
+                    {session?.data?.user?.name?.charAt(0) ?? ""}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
