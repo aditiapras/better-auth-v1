@@ -2,7 +2,7 @@ FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat wget
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -15,14 +15,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Generate Prisma Client
-RUN npx prisma generate
-
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Pass build-time variables
+ARG BETTER_AUTH_URL
+ENV BETTER_AUTH_URL=$BETTER_AUTH_URL
+
+# Generate Prisma Client and build
+RUN npx prisma generate
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -31,6 +33,8 @@ WORKDIR /app
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN apk add --no-cache wget
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -54,5 +58,4 @@ ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
 # server.js is created by next build from standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD ["node", "server.js"]
