@@ -19,7 +19,7 @@ export const auth = betterAuth({
     `${process.env.BETTER_AUTH_URL}/dashboard`,
     `${process.env.BETTER_AUTH_URL}/signup`,
     `${process.env.BETTER_AUTH_URL}/forget-password`,
-  ],
+  ], // Add more origins as needed
   session: {
     cookieCache: {
       enabled: true,
